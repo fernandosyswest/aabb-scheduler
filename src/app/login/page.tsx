@@ -31,7 +31,10 @@ export default function LoginPage() {
 
     try {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
         if (error) throw error;
         router.replace("/dashboard");
         router.refresh();
@@ -40,7 +43,9 @@ export default function LoginPage() {
         const { data, error: signUpError } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          },
         });
         if (signUpError) throw signUpError;
 
@@ -58,7 +63,7 @@ export default function LoginPage() {
         }
 
         setSuccess(
-          "Conta criada! Verifique seu e-mail para confirmar o cadastro. Se não encontrar, confira a pasta de spam."
+          "Conta criada! Verifique seu e-mail para confirmar o cadastro. Se não encontrar, confira a pasta de spam.",
         );
         setMode("login");
       }
@@ -68,10 +73,10 @@ export default function LoginPage() {
         msg.includes("Invalid login credentials")
           ? "E-mail ou senha incorretos."
           : msg.includes("User already registered")
-          ? "Este e-mail já está cadastrado. Faça login."
-          : msg.includes("Password should be at least")
-          ? "A senha deve ter no mínimo 6 caracteres."
-          : msg
+            ? "Este e-mail já está cadastrado. Faça login."
+            : msg.includes("Password should be at least")
+              ? "A senha deve ter no mínimo 6 caracteres."
+              : msg,
       );
     } finally {
       setLoading(false);
@@ -79,11 +84,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <div
+      className="min-h-screen flex"
+      style={{ fontFamily: "'DM Sans', sans-serif" }}
+    >
       {/* Left panel — branding */}
       <div
         className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #0038A9 0%, #1a4fc4 60%, #2060d8 100%)" }}
+        style={{
+          background:
+            "linear-gradient(135deg, #0038A9 0%, #1a4fc4 60%, #2060d8 100%)",
+        }}
       >
         {/* Tennis court pattern */}
         <div className="tennis-pattern absolute inset-0 opacity-60" />
@@ -102,9 +113,19 @@ export default function LoginPage() {
         <div className="relative z-10 flex items-center gap-3">
           <div
             className="w-12 h-12 rounded-xl flex items-center justify-center relative overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)" }}
+            style={{
+              background: "rgba(255,255,255,0.15)",
+              backdropFilter: "blur(8px)",
+            }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+            >
               <circle cx="12" cy="12" r="9" />
               <path d="M12 3C8 7 8 17 12 21" />
               <path d="M12 3C16 7 16 17 12 21" />
@@ -121,7 +142,9 @@ export default function LoginPage() {
             >
               AABB Tênis
             </div>
-            <div className="text-xs text-white/60 tracking-wider uppercase">Associação Atlética</div>
+            <div className="text-xs text-white/60 tracking-wider uppercase">
+              Associação Atlética
+            </div>
           </div>
         </div>
 
@@ -129,13 +152,19 @@ export default function LoginPage() {
         <div className="relative z-10">
           <h1
             className="text-white mb-4 leading-none"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(48px, 5vw, 72px)", letterSpacing: "2px" }}
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "clamp(48px, 5vw, 72px)",
+              letterSpacing: "2px",
+            }}
           >
-            Reserve sua<br />
+            Reserve sua
+            <br />
             <span style={{ color: "#F9DD17" }}>quadra</span> agora
           </h1>
           <p className="text-white/70 text-lg font-light max-w-sm">
-            Agende horários, gerencie reservas e participe dos melhores torneios de tênis da AABB.
+            Agende horários, gerencie reservas e participe dos melhores torneios
+            de tênis da AABB.
           </p>
 
           {/* Feature pills */}
@@ -148,10 +177,15 @@ export default function LoginPage() {
               <div
                 key={f.text}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl"
-                style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)" }}
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(4px)",
+                }}
               >
                 <span className="text-lg">{f.icon}</span>
-                <span className="text-white/90 text-sm font-medium">{f.text}</span>
+                <span className="text-white/90 text-sm font-medium">
+                  {f.text}
+                </span>
               </div>
             ))}
           </div>
@@ -162,7 +196,10 @@ export default function LoginPage() {
           <div className="w-8 h-px" style={{ background: "#F9DD17" }} />
           AABB — Associação Atlética Banco do Brasil
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1.5" style={{ background: "#F9DD17" }} />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1.5"
+          style={{ background: "#F9DD17" }}
+        />
       </div>
 
       {/* Right panel — form */}
@@ -174,7 +211,14 @@ export default function LoginPage() {
               className="w-9 h-9 rounded-lg flex items-center justify-center"
               style={{ background: "#0038A9" }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+              >
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 3C8 7 8 17 12 21" />
                 <path d="M12 3C16 7 16 17 12 21" />
@@ -182,7 +226,10 @@ export default function LoginPage() {
             </div>
             <span
               className="text-lg tracking-widest"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", color: "#0038A9" }}
+              style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                color: "#0038A9",
+              }}
             >
               AABB Tênis
             </span>
@@ -202,14 +249,24 @@ export default function LoginPage() {
             className="flex gap-1 p-1 rounded-xl mb-6"
             style={{ background: "#f1f5f9" }}
           >
-            {(["login", "register"] as const).map((m) => (
+            {(
+              ["login" /*"register" // Removido seção de cadastro */] as const
+            ).map((m) => (
               <button
                 key={m}
-                onClick={() => { setMode(m); setError(""); setSuccess(""); }}
+                onClick={() => {
+                  setMode(m);
+                  setError("");
+                  setSuccess("");
+                }}
                 className="flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-150"
                 style={
                   mode === m
-                    ? { background: "white", color: "#0038A9", boxShadow: "0 1px 3px rgba(0,56,169,0.1)" }
+                    ? {
+                        background: "white",
+                        color: "#0038A9",
+                        boxShadow: "0 1px 3px rgba(0,56,169,0.1)",
+                      }
                     : { color: "#64748b" }
                 }
               >
@@ -220,18 +277,48 @@ export default function LoginPage() {
 
           {/* Alerts */}
           {error && (
-            <div className="mb-4 px-4 py-3 rounded-xl text-sm flex items-start gap-2 animate-fade-in"
-              style={{ background: "#fef2f2", color: "#dc2626", border: "1px solid #fecaca" }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mt-0.5 flex-shrink-0">
-                <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+            <div
+              className="mb-4 px-4 py-3 rounded-xl text-sm flex items-start gap-2 animate-fade-in"
+              style={{
+                background: "#fef2f2",
+                color: "#dc2626",
+                border: "1px solid #fecaca",
+              }}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="mt-0.5 flex-shrink-0"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
               {error}
             </div>
           )}
           {success && (
-            <div className="mb-4 px-4 py-3 rounded-xl text-sm flex items-start gap-2 animate-fade-in"
-              style={{ background: "#f0fdf4", color: "#16a34a", border: "1px solid #bbf7d0" }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mt-0.5 flex-shrink-0">
+            <div
+              className="mb-4 px-4 py-3 rounded-xl text-sm flex items-start gap-2 animate-fade-in"
+              style={{
+                background: "#f0fdf4",
+                color: "#16a34a",
+                border: "1px solid #bbf7d0",
+              }}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="mt-0.5 flex-shrink-0"
+              >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
               {success}
@@ -281,7 +368,9 @@ export default function LoginPage() {
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder={mode === "register" ? "Mínimo 6 caracteres" : "••••••••"}
+                placeholder={
+                  mode === "register" ? "Mínimo 6 caracteres" : "••••••••"
+                }
                 className="form-input w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-sm focus:outline-none transition-all"
                 style={{ fontFamily: "inherit" }}
               />
@@ -290,7 +379,8 @@ export default function LoginPage() {
             {mode === "register" && (
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                  Telefone <span className="text-slate-400 font-normal">(opcional)</span>
+                  Telefone{" "}
+                  <span className="text-slate-400 font-normal">(opcional)</span>
                 </label>
                 <input
                   type="tel"
@@ -310,12 +400,22 @@ export default function LoginPage() {
               style={{
                 background: loading ? "#e2e8f0" : "#F9DD17",
                 color: loading ? "#94a3b8" : "#002880",
-                boxShadow: loading ? "none" : "0 4px 16px rgba(249,221,23,0.35)",
+                boxShadow: loading
+                  ? "none"
+                  : "0 4px 16px rgba(249,221,23,0.35)",
               }}
             >
               {loading ? (
                 <>
-                  <svg className="animate-spin-custom" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg
+                    className="animate-spin-custom"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
                     <path d="M21 12a9 9 0 11-6.219-8.56" />
                   </svg>
                   Aguarde...
