@@ -431,13 +431,13 @@ export default function LoginPage() {
           {mode === "login" && (
             <p className="text-center text-xs text-slate-400 mt-6">
               Acesso restrito a associados da AABB.{" "}
-              <button
+              {/*<button
                 onClick={() => setMode("register")}
                 className="font-medium"
                 style={{ color: "#0038A9" }}
               >
                 Cadastre-se aqui.
-              </button>
+              </button>*/}
             </p>
           )}
         </div>
